@@ -31,6 +31,7 @@
     <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
     <lombok.version>1.18.16</lombok.version>
+    <jbehave-core.version>4.8.3</jbehave-core.version>
   </properties>
 
   <scm>
@@ -118,6 +119,13 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jbehave</groupId>
+      <artifactId>jbehave-core</artifactId>
+      <version>${jbehave-core.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
