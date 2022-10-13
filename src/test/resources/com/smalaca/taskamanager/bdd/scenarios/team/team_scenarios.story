@@ -12,6 +12,7 @@ And Project Manager checks what teams exist
 
 Then team was created
 And 1 teams found
+And team with name Avengers exist
 
 When Project Manager creates team X-Men
 And Project Manager creates team Defenders
@@ -19,6 +20,10 @@ And Project Manager creates team Fantastic Four
 And Project Manager checks what teams exist
 
 Then 4 teams found
+And team with name Avengers exist
+And team with name X-Men exist
+And team with name Defenders exist
+And team with name Fantastic Four exist
 
 When Project Manager creates team X-Men
 

@@ -22,10 +22,9 @@ public class TeamScenarios extends JBehaveConfiguration {
     private static final String TEAM_URL = "http://localhost:8080/team";
 
     private final RestTemplate restTemplate = restTemplate();
-
     private List<TeamDto> teamDtos;
-
     private ResponseEntity<Void> response;
+
     @BeforeScenario
     public void removeAllTeams() {
         TeamDto[] dtos = restTemplate.getForObject(TEAM_URL, TeamDto[].class);
@@ -62,6 +61,13 @@ public class TeamScenarios extends JBehaveConfiguration {
     @Then("$expectedTeamsNumber teams found")
     public void shouldFindTeams(int expectedTeamsNumber) {
         assertThat(teamDtos).hasSize(expectedTeamsNumber);
+    }
+
+    @Then("team with name $expectedName exist")
+    public void shouldFindTeamWithName(String expectedName) {
+        assertThat(teamDtos).anySatisfy(dto -> {
+            assertThat(dto.getName()).isEqualTo(expectedName);
+        });
     }
 
     @When("Project Manager creates team $name")
