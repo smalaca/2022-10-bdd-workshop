@@ -24,6 +24,7 @@ import org.jbehave.core.steps.ParameterConverters.ExamplesTableConverter;
 
 import java.util.Properties;
 
+import static java.util.Arrays.asList;
 import static org.jbehave.core.reporters.Format.CONSOLE;
 import static org.jbehave.core.reporters.Format.HTML;
 import static org.jbehave.core.reporters.Format.TXT;
@@ -32,6 +33,8 @@ public abstract class JBehaveConfiguration extends JUnitStory {
     @Override
     public Embedder configuredEmbedder() {
         Embedder embedder = super.configuredEmbedder();
+        embedder.useMetaFilters(asList("-skip"));
+
         embedder.embedderControls()
                 .doFailOnStoryTimeout(true)
                 .doGenerateViewAfterStories(true)
