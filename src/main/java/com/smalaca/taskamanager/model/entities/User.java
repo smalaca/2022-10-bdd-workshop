@@ -13,7 +13,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private TeamRole teamRole;
 
-    @OneToMany
+    @ManyToMany
     private List<Team> teams = new ArrayList<>();
 
     public UserName getUserName() {

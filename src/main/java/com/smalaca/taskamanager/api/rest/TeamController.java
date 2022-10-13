@@ -43,6 +43,7 @@ public class TeamController {
     }
 
     @GetMapping
+    @Transactional
     public ResponseEntity<List<TeamDto>> findAll() {
         List<TeamDto> teams = StreamSupport.stream(teamRepository.findAll().spliterator(), false)
                 .map(team -> {
@@ -56,6 +57,7 @@ public class TeamController {
                     }
 
                     dto.setDescription(team.getDescription());
+                    dto.setUserIds(team.getMembers().stream().map(User::getId).collect(toList()));
 
                     return dto;
                 })
