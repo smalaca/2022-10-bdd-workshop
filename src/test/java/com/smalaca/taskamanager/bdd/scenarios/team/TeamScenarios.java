@@ -1,6 +1,7 @@
 package com.smalaca.taskamanager.bdd.scenarios.team;
 
 import com.smalaca.taskamanager.bdd.scenarios.JBehaveConfiguration;
+import com.smalaca.taskamanager.dto.TeamDto;
 import org.jbehave.core.annotations.BeforeScenario;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -72,7 +73,8 @@ public class TeamScenarios extends JBehaveConfiguration {
 
     @When("Project Manager creates team $name")
     public void createTeam(String name) {
-        TeamDto teamDto = TeamDto.builder().name(name).build();
+        TeamDto teamDto = new TeamDto();
+        teamDto.setName(name);
         HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
 
         response = restTemplate.exchange(TEAM_URL, HttpMethod.POST, entity, Void.class);
