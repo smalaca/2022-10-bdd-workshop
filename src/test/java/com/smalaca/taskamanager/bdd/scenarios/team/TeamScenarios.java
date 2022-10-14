@@ -3,6 +3,7 @@ package com.smalaca.taskamanager.bdd.scenarios.team;
 import com.google.common.primitives.Longs;
 import com.smalaca.taskamanager.bdd.client.ProjectManagementClient;
 import com.smalaca.taskamanager.bdd.client.ProjectManagementClientFactory;
+import com.smalaca.taskamanager.bdd.client.dto.UserDtoTestFactory;
 import com.smalaca.taskamanager.bdd.scenarios.JBehaveConfiguration;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
 import com.smalaca.taskamanager.dto.UserDto;
@@ -23,7 +24,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -115,14 +115,9 @@ public class TeamScenarios extends JBehaveConfiguration {
 
     @Given("User $firstName $lastName")
     public void givenUser(String firstName, String lastName) {
-        UserDto userDto = new UserDto();
-        userDto.setFirstName(firstName);
-        userDto.setLastName(lastName);
-        userDto.setTeamRole("DEVELOPER");
-        userDto.setLogin(firstName + " " + lastName);
-        userDto.setPassword(UUID.randomUUID().toString());
-        HttpEntity<UserDto> entity = new HttpEntity<>(userDto);
+        UserDto userDto = UserDtoTestFactory.create(firstName, lastName);
 
+        HttpEntity<UserDto> entity = new HttpEntity<>(userDto);
         ResponseEntity<Void> response = restTemplate.exchange(USER_URL, HttpMethod.POST, entity, Void.class);
 
         Long userId = Long.valueOf(response.getHeaders().getLocation().toString().replace(USER_URL, ""));
