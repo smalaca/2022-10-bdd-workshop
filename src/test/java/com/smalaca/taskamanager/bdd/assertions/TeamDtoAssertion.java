@@ -1,6 +1,6 @@
 package com.smalaca.taskamanager.bdd.assertions;
 
-import com.smalaca.taskamanager.bdd.scenarios.team.TeamDto;
+import com.smalaca.taskamanager.bdd.client.dto.TeamDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

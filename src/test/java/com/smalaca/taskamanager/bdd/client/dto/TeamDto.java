@@ -1,4 +1,4 @@
-package com.smalaca.taskamanager.bdd.scenarios.team;
+package com.smalaca.taskamanager.bdd.client.dto;
 
 import lombok.Getter;
 import lombok.Setter;

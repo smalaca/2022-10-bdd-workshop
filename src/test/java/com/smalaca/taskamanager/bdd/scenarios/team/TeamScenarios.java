@@ -3,6 +3,7 @@ package com.smalaca.taskamanager.bdd.scenarios.team;
 import com.google.common.primitives.Longs;
 import com.smalaca.taskamanager.bdd.client.ProjectManagementClient;
 import com.smalaca.taskamanager.bdd.client.ProjectManagementClientFactory;
+import com.smalaca.taskamanager.bdd.client.dto.TeamDto;
 import com.smalaca.taskamanager.bdd.client.dto.UserDtoTestFactory;
 import com.smalaca.taskamanager.bdd.scenarios.JBehaveConfiguration;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
@@ -31,7 +32,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TeamScenarios extends JBehaveConfiguration {
     private static final String BASE_URL = "http://localhost:8080/";
     private static final String TEAM_URL = BASE_URL + "team/";
-    private static final String USER_URL = BASE_URL + "user/";
 
     private final RestTemplate restTemplate = restTemplate();
     private final ProjectManagementClient client = ProjectManagementClientFactory.create(BASE_URL);
@@ -136,8 +136,8 @@ public class TeamScenarios extends JBehaveConfiguration {
         TeamDto teamDto = restTemplate.getForObject(TEAM_URL + teams.get(teamName), TeamDto.class);
 
         assertThat(teamDto)
-            .hasName(teamName)
-            .hasTeamMembersAmount(teamMembersAmount);
+                .hasName(teamName)
+                .hasTeamMembersAmount(teamMembersAmount);
     }
 
     @Then("$teamName contains $teamMemberFullName")
@@ -145,7 +145,7 @@ public class TeamScenarios extends JBehaveConfiguration {
         TeamDto teamDto = restTemplate.getForObject(TEAM_URL + teams.get(teamName), TeamDto.class);
 
         assertThat(teamDto)
-            .hasName(teamName)
-            .hasTeamMember(users.get(teamMemberFullName));
+                .hasName(teamName)
+                .hasTeamMember(users.get(teamMemberFullName));
     }
 }

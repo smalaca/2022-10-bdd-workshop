@@ -1,6 +1,6 @@
 package com.smalaca.taskamanager.bdd.client;
 
-import com.smalaca.taskamanager.bdd.scenarios.team.TeamDto;
+import com.smalaca.taskamanager.bdd.client.dto.TeamDto;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
 import com.smalaca.taskamanager.dto.UserDto;
 import org.springframework.http.HttpEntity;
