@@ -3,11 +3,15 @@ Project manager should have the possibility to create, modify and delete teams.
 Also they need to have a possibility to add and remove team members from the team.
 
 !-- Stworzenie zespołu wymaga zdefiniowania Lidera Zespołu
-
-!-- W zespole musi zostać co najmniej jedna osoba
-!-- W przypadku usunięcia obecnego Lidera należy określić nowego 
+!--     User Story: Stworzenie zespołu wymaga określenia lidera
+!--                 - lider musi być istniejącym użytkownik
+!--     User Story: Odczytywanie zespołów zwraca również id lidera
+!--     User Story: Odczytywanie zespołu zwraca również id lidera???
+!--     User Story: Włącz scenariusz "Should create teams"
 
 Scenario: Should create teams
+Meta:
+@skip
 Given User Steve Rogers
 And User Eric Magneto
 And User Matt Murdock
