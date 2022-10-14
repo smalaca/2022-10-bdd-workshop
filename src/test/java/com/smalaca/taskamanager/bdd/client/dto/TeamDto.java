@@ -11,5 +11,6 @@ import java.util.List;
 public class TeamDto {
     private Long id;
     private String name;
+    private Long leaderId;
     private List<Long> userIds = new ArrayList<>();
 }

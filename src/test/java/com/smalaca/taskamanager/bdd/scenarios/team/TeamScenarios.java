@@ -79,19 +79,25 @@ public class TeamScenarios extends JBehaveConfiguration {
         assertThat(teamDtos).hasSize(expectedTeamsNumber);
     }
 
-    @Then("team with name $expectedName exist")
-    public void shouldFindTeamWithName(String expectedName) {
+    @Then("team with name $expectedName and leader $teamMemberFullName exist")
+    public void shouldFindTeamWithName(String expectedName, String teamMemberFullName) {
+//        assertThat(teamDtos)
+//                .hasTeam(expectedName)
+//                .hasLeader(users.get(teamMemberFullName));
+
         assertThat(teamDtos).anySatisfy(dto -> {
             assertThat(dto.getName()).isEqualTo(expectedName);
+            assertThat(dto.getLeaderId()).isEqualTo(users.get(teamMemberFullName));
         });
     }
 
-    @When("Project Manager creates team $name")
-    public void createTeam(String name) {
+    @When("Project Manager creates team $name with leader $teamMemberFullName")
+    public void createTeam(String name, String teamMemberFullName) {
         TeamDto teamDto = new TeamDto();
         teamDto.setName(name);
-        HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
+        teamDto.setLeaderId(users.get(teamMemberFullName));
 
+        HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
         response = restTemplate.exchange(TEAM_URL, HttpMethod.POST, entity, Void.class);
 
         updateTeamId(name);
