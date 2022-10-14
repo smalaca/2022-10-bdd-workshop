@@ -2,7 +2,6 @@ package com.smalaca.taskamanager.bdd.scenarios.team;
 
 import com.google.common.primitives.Longs;
 import com.smalaca.taskamanager.bdd.scenarios.JBehaveConfiguration;
-import com.smalaca.taskamanager.dto.TeamDto;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
 import com.smalaca.taskamanager.dto.UserDto;
 import org.jbehave.core.annotations.BeforeScenario;
