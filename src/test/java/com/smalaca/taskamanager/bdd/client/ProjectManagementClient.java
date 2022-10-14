@@ -2,8 +2,10 @@ package com.smalaca.taskamanager.bdd.client;
 
 import com.smalaca.taskamanager.bdd.scenarios.team.TeamDto;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
+import com.smalaca.taskamanager.dto.UserDto;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -30,5 +32,23 @@ public class ProjectManagementClient {
 
     private String teamUrl() {
         return url + "team/";
+    }
+
+    public void deleteAllUsers() {
+        UserDto[] userDtos = restTemplate.getForObject(userUrl(), UserDto[].class);
+        Arrays.asList(userDtos).forEach(dto -> {
+            restTemplate.delete(userUrl() + dto.getId());
+        });
+    }
+
+    private String userUrl() {
+        return url + "user/";
+    }
+
+    public Long createTeam(TeamDto teamDto) {
+        HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
+        ResponseEntity<Void> response = restTemplate.exchange(teamUrl(), HttpMethod.POST, entity, Void.class);
+        String id = response.getHeaders().getLocation().toString().replace(teamUrl(), "");
+        return Long.valueOf(id);
     }
 }

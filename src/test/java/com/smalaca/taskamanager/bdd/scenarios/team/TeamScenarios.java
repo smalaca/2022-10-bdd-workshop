@@ -42,12 +42,9 @@ public class TeamScenarios extends JBehaveConfiguration {
     @BeforeScenario
     public void removeAllTeams() {
         client.deleteAllTeams();
-        UserDto[] userDtos = restTemplate.getForObject(USER_URL, UserDto[].class);
-        Arrays.asList(userDtos).forEach(dto -> {
-            restTemplate.delete(USER_URL + dto.getId());
-        });
+        client.deleteAllUsers();
 
-        this.teamDtos = new ArrayList<>();
+        teamDtos = new ArrayList<>();
         users = new HashMap<>();
         teams = new HashMap<>();
     }
@@ -110,11 +107,10 @@ public class TeamScenarios extends JBehaveConfiguration {
     public void givenExistingTeam(String name) {
         TeamDto teamDto = new TeamDto();
         teamDto.setName(name);
-        HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
 
-        ResponseEntity<Void> response = restTemplate.exchange(TEAM_URL, HttpMethod.POST, entity, Void.class);
+        Long id = client.createTeam(teamDto);
 
-        teams.put(name, Long.valueOf(response.getHeaders().getLocation().toString().replace(TEAM_URL, "")));
+        teams.put(name, id);
     }
 
     @Given("User $firstName $lastName")
