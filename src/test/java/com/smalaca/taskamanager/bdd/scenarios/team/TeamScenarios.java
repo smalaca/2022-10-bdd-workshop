@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.smalaca.taskamanager.bdd.assertions.AssertionsFacade.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TeamScenarios extends JBehaveConfiguration {
@@ -134,15 +135,17 @@ public class TeamScenarios extends JBehaveConfiguration {
     public void teamShouldContainExpectedNumberOfMembers(String teamName, int teamMembersAmount) {
         TeamDto teamDto = restTemplate.getForObject(TEAM_URL + teams.get(teamName), TeamDto.class);
 
-        assertThat(teamDto.getName()).isEqualTo(teamName);
-        assertThat(teamDto.getUserIds()).hasSize(teamMembersAmount);
+        assertThat(teamDto)
+            .hasName(teamName)
+            .hasTeamMembersAmount(teamMembersAmount);
     }
 
     @Then("$teamName contains $teamMemberFullName")
     public void teamShouldContainExpectedMember(String teamName, String teamMemberFullName) {
         TeamDto teamDto = restTemplate.getForObject(TEAM_URL + teams.get(teamName), TeamDto.class);
 
-        assertThat(teamDto.getName()).isEqualTo(teamName);
-        assertThat(teamDto.getUserIds()).contains(users.get(teamMemberFullName));
+        assertThat(teamDto)
+            .hasName(teamName)
+            .hasTeamMember(users.get(teamMemberFullName));
     }
 }
