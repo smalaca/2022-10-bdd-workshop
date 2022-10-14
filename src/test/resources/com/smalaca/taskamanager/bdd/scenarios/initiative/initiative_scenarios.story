@@ -8,7 +8,7 @@ Narrative:
 
 Odrzucenie inicjatywy powoduje wysłanie notyfikacji do właściciela
 
-Scenario: scenario description
+Scenario: Convert initiative into project
 Given user Sebastian Malaca with mail sebastian.malaca<at>gmail.com
 
 When Manager creates new initative TDD Workshop with start date 14.10.2022 owned by Sebastian Malaca
