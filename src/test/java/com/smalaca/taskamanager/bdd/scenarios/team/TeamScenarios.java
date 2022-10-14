@@ -36,7 +36,6 @@ public class TeamScenarios extends JBehaveConfiguration {
     private Map<String, Long> users;
     private Map<String, Long> teams;
     private ResponseEntity<Void> response;
-    private Long teamId;
 
     @BeforeScenario
     public void removeAllTeams() {
