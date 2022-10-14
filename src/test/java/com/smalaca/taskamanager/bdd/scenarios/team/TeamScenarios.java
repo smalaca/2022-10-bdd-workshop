@@ -13,6 +13,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -92,6 +93,17 @@ public class TeamScenarios extends JBehaveConfiguration {
         HttpEntity<TeamDto> entity = new HttpEntity<>(teamDto);
 
         response = restTemplate.exchange(TEAM_URL, HttpMethod.POST, entity, Void.class);
+
+        updateTeamId(name);
+    }
+
+    private void updateTeamId(String name) {
+        HttpHeaders headers = response.getHeaders();
+
+        if (headers.getLocation() != null) {
+            String id = headers.getLocation().toString().replace(TEAM_URL, "");
+            teams.put(name, Long.valueOf(id));
+        }
     }
 
     @Then("team was created")
@@ -102,16 +114,6 @@ public class TeamScenarios extends JBehaveConfiguration {
     @Then("no new team created")
     public void teamNotCreated() {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-    }
-
-    @Given("existing team $name")
-    public void givenExistingTeam(String name) {
-        TeamDto teamDto = new TeamDto();
-        teamDto.setName(name);
-
-        Long id = client.createTeam(teamDto);
-
-        teams.put(name, id);
     }
 
     @Given("User $firstName $lastName")
