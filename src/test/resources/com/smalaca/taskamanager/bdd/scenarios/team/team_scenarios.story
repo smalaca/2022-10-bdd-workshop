@@ -41,6 +41,10 @@ And User Scott Summer
 And User Ororo Munroe
 
 When Project Manager adds Charles Xavier to X-Force
+
+Then X-Force have 1 team member
+And X-Force contains Charles Xavier
+
 When Project Manager adds Ororo Munroe to X-Force
 
 Then X-Force have 2 team member
