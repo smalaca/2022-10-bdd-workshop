@@ -51,4 +51,10 @@ public class ProjectManagementClient {
         String id = response.getHeaders().getLocation().toString().replace(teamUrl(), "");
         return Long.valueOf(id);
     }
+
+    public Long createUser(UserDto userDto) {
+        HttpEntity<UserDto> entity = new HttpEntity<>(userDto);
+        ResponseEntity<Void> response = restTemplate.exchange(userUrl(), HttpMethod.POST, entity, Void.class);
+        return Long.valueOf(response.getHeaders().getLocation().toString().replace(userUrl(), ""));
+    }
 }

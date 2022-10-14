@@ -117,11 +117,9 @@ public class TeamScenarios extends JBehaveConfiguration {
     public void givenUser(String firstName, String lastName) {
         UserDto userDto = UserDtoTestFactory.create(firstName, lastName);
 
-        HttpEntity<UserDto> entity = new HttpEntity<>(userDto);
-        ResponseEntity<Void> response = restTemplate.exchange(USER_URL, HttpMethod.POST, entity, Void.class);
+        Long id = client.createUser(userDto);
 
-        Long userId = Long.valueOf(response.getHeaders().getLocation().toString().replace(USER_URL, ""));
-        users.put(firstName + " " + lastName, userId);
+        users.put(firstName + " " + lastName, id);
     }
 
     @When("Project Manager adds $teamMemberFullName to $teamName")
