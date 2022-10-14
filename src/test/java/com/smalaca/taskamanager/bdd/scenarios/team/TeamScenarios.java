@@ -1,6 +1,8 @@
 package com.smalaca.taskamanager.bdd.scenarios.team;
 
 import com.google.common.primitives.Longs;
+import com.smalaca.taskamanager.bdd.client.ProjectManagementClient;
+import com.smalaca.taskamanager.bdd.client.ProjectManagementClientFactory;
 import com.smalaca.taskamanager.bdd.scenarios.JBehaveConfiguration;
 import com.smalaca.taskamanager.dto.TeamMembersDto;
 import com.smalaca.taskamanager.dto.UserDto;
@@ -31,6 +33,7 @@ public class TeamScenarios extends JBehaveConfiguration {
     private static final String USER_URL = BASE_URL + "user/";
 
     private final RestTemplate restTemplate = restTemplate();
+    private final ProjectManagementClient client = ProjectManagementClientFactory.create(BASE_URL);
     private List<TeamDto> teamDtos;
     private Map<String, Long> users;
     private Map<String, Long> teams;
@@ -38,14 +41,7 @@ public class TeamScenarios extends JBehaveConfiguration {
 
     @BeforeScenario
     public void removeAllTeams() {
-        TeamDto[] teamDtos = restTemplate.getForObject(TEAM_URL, TeamDto[].class);
-        Arrays.asList(teamDtos).forEach(dto -> {
-            TeamMembersDto teamMembersDto = new TeamMembersDto();
-            teamMembersDto.setUserIds(dto.getUserIds());
-            HttpEntity<TeamMembersDto> entity = new HttpEntity<>(teamMembersDto);
-            restTemplate.exchange(TEAM_URL + dto.getId() + "/members", HttpMethod.DELETE, entity, Void.class);
-            restTemplate.delete(TEAM_URL + dto.getId());
-        });
+        client.deleteAllTeams();
         UserDto[] userDtos = restTemplate.getForObject(USER_URL, UserDto[].class);
         Arrays.asList(userDtos).forEach(dto -> {
             restTemplate.delete(USER_URL + dto.getId());
